@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.rmi.Naming;
 import java.util.Scanner;
 
@@ -16,30 +17,29 @@ public class Cliente {
             if(opt == 5) {break;}
 
             System.out.println("Primeiro valor:");
-            int num1 = sc.nextInt();
+            String num1 = String.valueOf(sc.nextFloat());
             System.out.println("Segundo valor:");
-            int num2 = sc.nextInt();
-            int resultado;
+            String num2 = String.valueOf(sc.nextFloat());
+            BigDecimal resultado;
+
+            //Referência para um objeto remoto associado a um nome específico
+            Interface obj = (Interface) Naming.lookup("rmi://localhost:5050/obj");
 
             switch(opt){
                 case 1:
-                    Interface obj = (Interface) Naming.lookup("rmi://localhost:5050/obj");
                     resultado = obj.add(num1, num2);
                     System.out.println("Adição = " + resultado);
                     break;
                 case 2:
-                    Interface obj1 = (Interface) Naming.lookup("rmi://localhost:5050/obj");
-                    resultado = obj1.sub(num1, num2);
+                    resultado = obj.sub(num1, num2);
                     System.out.println("Subtração = " + resultado);
                     break;
                 case 3:
-                    Interface obj2 = (Interface)Naming.lookup("rmi://localhost:5050/obj");
-                    resultado = obj2.mul(num1, num2);
+                    resultado = obj.mul(num1, num2);
                     System.out.println("Multiplicação = " + resultado);
                     break;
                 case 4:
-                    Interface obj3 = (Interface)Naming.lookup("rmi://localhost:5050/obj");
-                    resultado = obj3.div(num1, num2);
+                    resultado = obj.div(num1, num2);
                     System.out.println("Divisão = " + resultado);
                     break;
             }
